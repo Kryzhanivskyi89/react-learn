@@ -1,5 +1,28 @@
 import { Component } from "react";
 
+class Button extends Component  {
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        if (
+            nextProps.handleClickPlus === this.props.handleClickPlus && 
+            nextProps.obj.name === this.props.obj.name   /* така перевірка робиться якщо в обєкті потрібно перевірити один ключ */
+            )
+            return false
+        return true
+    }
+
+    render() { 
+        return (
+            <button
+                className='btn btn-outline-success me-5'
+                onClick={this.props.handleClickPlus}
+            >
+                <i className='bi bi-plus-circle fs-1'></i>
+            </button>
+        );
+    }
+}
+
 class Counter extends Component {
     state = {
         value:0,
@@ -11,6 +34,11 @@ class Counter extends Component {
         this.setState((prevState) => {
             return { value: prevState.value - 1 }
         })
+    }
+
+    handleClickBtn = () => {
+        const { name, count } = this.props
+        const age = count ?? 10
     }
 
     render() {
@@ -29,15 +57,19 @@ class Counter extends Component {
                             {this.state.value}
                         </p>
                         <div className='d-flex justify-content-center px-5'>
-                            <button
+                            {/* <button
                                 className='btn btn-outline-success me-5'
                                 onClick={this.handleClickPlus}
                             >
                                 <i className='bi bi-plus-circle fs-1'></i>
-                            </button>
+                            </button> */}
+                            <Button
+                                obj={{name:'asd'}}
+                                handleClickPlus={this.handleClickPlus}
+                            />
                             <button
                                 className='btn  btn-outline-danger ms-5'
-                            onClick={this.handleClickMinus}
+                                onClick={this.handleClickMinus}
                             >
                                 <i className='bi bi-dash-circle fs-1'></i>
                             </button>

@@ -1,9 +1,24 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
 
-const Modal =({children, closeModal}) => {
+class Modal extends Component {
+	state = {} 
+	
+	componentDidMount() { 
+		window.addEventListener('keydown', this.handlePresESC)  /* вішаємо слухача */
+	}
 
-	return (
-		<div
+	componentWillUnmount() {
+		window.removeEventListener('keydown', this.handlePresESC)  /* знімаємо слухача */
+	}
+
+	handlePresESC = ( e ) => {    
+		if (e.code === "Escape") /* при кліку на escape */
+		this.props.closeModal()   /* викликається closeModal */
+	}
+
+	render() { 
+		const {children, closeModal} = this.props
+		return (<div
 			className='modal fade show'
 			style={{ display: 'block', backdropFilter: 'blur(5px)' }}
 		>
@@ -21,9 +36,18 @@ const Modal =({children, closeModal}) => {
 					<div className='modal-body'>{children}</div>
 				</div>
 			</div>
-		</div>
-	)
-	
+		</div>);
+	}
 }
+ 
+export default Modal;
 
-export default Modal
+// const Modal =({children, closeModal}) => {
+
+// 	return (
+		
+// 	)
+	
+// }
+
+// export default Modal

@@ -4,14 +4,19 @@ import {nanoid} from 'nanoid'
 // import Counter from './Counter/Counter';
 import Modal from './Modal/Modal';
 import Header from './Header/Header';
-// import ToDoList from './ToDoList/TodoList';
+import ToDoList from './ToDoList/TodoList';
 import FormLogin from './FormLogin/FormLogin';
+import Search from './Search/Search';
+import ContentInfo from './ContentInfo/ContentInfo';
 
 class App extends Component {
 
 state = {
-		isShowModal: false,
-	}
+    isShowModal: false,
+    searchText: '',
+}
+    
+    
 
     showModal = () => {
         this.setState({isShowModal:true})
@@ -28,10 +33,16 @@ state = {
         }
     }
 
+    handleSearch = (searchText) => {
+        this.setState({searchText})
+    }
+
     render() {
         return(
         <>
             <Header showModal={this.showModal}/>
+            <Search handleSearch={this.handleSearch} />
+            <ContentInfo searchText={this.state.searchText} />
                 {this.state.isShowModal && <Modal closeModal={this.closeModal}>
                     <FormLogin
                         createUser={this.createUser}
@@ -41,7 +52,7 @@ state = {
             {/* {this.state.isShowModal && <Modal closeModal={this.closeModal} />} */}
             {/* <Card /> */}
             {/* <Counter /> */}
-            {/* <ToDoList /> */}
+            <ToDoList />
             
         </>
         )

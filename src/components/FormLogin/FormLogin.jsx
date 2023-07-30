@@ -32,7 +32,7 @@ class FormLogin extends Component {
             gtnder: this.state.gender,
         })
         this.setState({   /* чистимо форму */
-             email: '',
+            email: '',
             password: '',
         })
         this.props.closeModal()

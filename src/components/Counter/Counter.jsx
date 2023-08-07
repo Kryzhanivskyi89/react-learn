@@ -1,4 +1,4 @@
-import { Component, useState } from "react";
+import { Component, useReducer, useState } from "react";
 
 class Button extends Component  {
     
@@ -23,20 +23,33 @@ class Button extends Component  {
     }
 }
 
+function reducer(prevState, action) {
+    if (action.type === 'increment')
+        return prevState + action.payload
+    else return prevState - action.payload
+}
 
 const Counter = () => {
-    const [total, setTotal] = useState(0)
+// useState
     
-    const handleClickPlus = (e) =>
-        setTotal ((prevTotal)=>prevTotal+1)
-        // this.setState((prevState) => ({ value: prevState.value + 1 }))
+    // const [total, setTotal] = useState(0)
+    // const handleClickPlus = (e) =>
+    //     setTotal ((prevTotal)=>prevTotal+1)
+    //     // this.setState((prevState) => ({ value: prevState.value + 1 }))
         
-    const handleClickMinus = (e) => {
-        setTotal ((prevTotal)=>prevTotal-1)
-        // this.setState((prevState) => {
-        //     return { value: prevState.value - 1 }
-        // })
-    }
+    // const handleClickMinus = (e) => {
+    //     setTotal ((prevTotal)=>prevTotal-1)
+    //     // this.setState((prevState) => {
+    //     //     return { value: prevState.value - 1 }
+    //     // })
+    // }
+
+// useReducer
+    const [total, setTotal] = useReducer(reducer, 0,)
+    
+    const handleClickPlus = (e) => setTotal ({type:'increment', payload:1})
+       
+    const handleClickMinus = (e) => setTotal({type:'decrement', payload:1})
 
     return (
         <div className='position-absolute top-50 start-50 translate-middle'>

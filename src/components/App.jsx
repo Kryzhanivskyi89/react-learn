@@ -9,6 +9,7 @@ import ToDoList from './ToDoList/TodoList';
 import FormLogin from './FormLogin/FormLogin';
 import Search from './Search/Search';
 import ContentInfo from './ContentInfo/ContentInfo';
+import TestUseMemo from './TestUseMemo/TestUseMemo';
 
 
 const App = () => {
@@ -40,7 +41,7 @@ const App = () => {
             <Header showModal={showModal}/>
             <Search handleSearch={handleSearch} />
             <ContentInfo searchText={searchText} />
-            <ToDoList />
+            {/* <ToDoList /> */}
             {isShowModal &&
                 <Modal closeModal={closeModal}>
                      <FormLogin
@@ -49,6 +50,7 @@ const App = () => {
                     />
                 </Modal>}
             {/* <Counter /> */}
+            <TestUseMemo/>
             {/* <Card /> */}
       </div>
     

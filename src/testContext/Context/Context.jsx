@@ -8,14 +8,14 @@ export const useCustomContex = () => {
 
 const Context = ({ children }) => {
 	const [toggleAlert, setToggleAlert] = useState(false)
-	// const [news, setNews] = useState(null)
+	const [news, setNews] = useState(null)
 	return (
 		<ContextAlert.Provider
 			value={{
 				toggleValue: toggleAlert,
 				toggle: setToggleAlert,
-				// news: news,
-				// setNews: setNews,
+				news: news,
+				setNews: setNews,
 			}}
 		>
 			{children}

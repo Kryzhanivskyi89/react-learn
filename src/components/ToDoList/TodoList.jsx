@@ -49,11 +49,9 @@ const ToDoList = () => {
 
     return (
         <>
-                <h1>My To-Do list</h1>
-                
-                <FormToDo addToDo={addToDo } />
-                
-                {todoList && (
+            <h1>My To-Do list</h1>
+            <FormToDo addToDo={addToDo } />
+               {todoList && (
                     <ul className='list-group list-group-flush'>
                         {todoList.map((todo) => (
                             <ToDo
@@ -65,7 +63,7 @@ const ToDoList = () => {
                     </ul>
                 )}    
                 
-            </>
+        </>
     )
 }
 

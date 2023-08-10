@@ -1,4 +1,4 @@
-import React, { useState, useId } from 'react';
+import React, { useState, Suspense, } from 'react';
 import { Outlet } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 
@@ -33,8 +33,10 @@ const Layout = () => {
 				toastOptions={{
 					duration: 1500,
 				}}/> 
-            <Header showModal={showModal}/>
-            <Outlet /> 
+            <Header showModal={showModal} />
+            <Suspense>
+                <Outlet /> 
+            </Suspense>
             {isShowModal &&
                 <Modal closeModal={closeModal}>
                      <FormLogin

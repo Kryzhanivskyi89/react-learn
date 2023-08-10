@@ -1,11 +1,17 @@
-import React, { Component, useState, useId } from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import Layout from './Layout/Layout';
 
 import HomePage from './pages/HomePage';
-import NewsPage from './pages/NewsPage';
-import TodoPage from './pages/TodoPage';
-import Layout from './Layout/Layout';
-import ToDoDetails from './Todo/ToDoDetails';
+// import LoginPage from './pages/LoginPage';
+// import NewsPage from './pages/NewsPage';
+// import TodoPage from './pages/TodoPage';
+// import ToDoDetails from './Todo/ToDoDetails';
+
+const ToDoDetails = lazy(() => import('./Todo/ToDoDetails'))
+const TodoPage = lazy(() => import('./pages/TodoPage'))
+const NewsPage = lazy(() => import('./pages/NewsPage'))
+const LoginPage = lazy(() => import('./pages/LoginPage'))
 
 const App = () => {
   return (
@@ -16,6 +22,7 @@ const App = () => {
         <Route path='todo' element={<TodoPage />} />
         <Route path='todo/:id' element={<ToDoDetails />} />
       </Route>
+      <Route path='/login' element={<Suspense><LoginPage /></Suspense> } />
     </Routes> )
 }
 

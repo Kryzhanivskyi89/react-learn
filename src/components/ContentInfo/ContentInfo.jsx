@@ -1,6 +1,7 @@
-import { Component } from "react";
+import React, {useEffect, useState } from "react";
 import { getNews } from "../../services/getNews";
 import ErrorCard from "../ErrorCard/ErrorCard";
+import { useCustomContex } from "../../testContext/Context/Context";
 
 const STATUS = {
     IDLE: 'idle',
@@ -9,50 +10,40 @@ const STATUS = {
     RESOLVED: 'resolved',
 }
 
-class ContentInfo extends Component {
-    state = {
-        news: null,
-        // isLoading: false,
-        error: '',
-        status: STATUS.IDLE,
-    } 
+const ContentInfo = ({ searchText }) => {
+    const { news, setNews } = useCustomContex()
     
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.searchText !== this.props.searchText) {
-            this.setState({ status: STATUS.PENDING })
-            
-            getNews(this.props.searchText)
+    const [error, setError] = useState('')
+    const [status, setStatus] = useState(STATUS.IDLE)
+
+    useEffect(() => {
+        news && setStatus(STATUS.RESOLVED)
+    }, [news])
+
+    useEffect(() => {
+        if (!searchText) return
+            setStatus ( STATUS.PENDING )
+            getNews(searchText)
                 .then((response) => response.json())
                 .then((data) => {
-                    if (data.status === "ok")
-                        this.setState({
-                            news: data.articles,
-                            status: STATUS.RESOLVED,
-                        })
-                    else return Promise.reject(data.message)
+                    if (data.status === "ok") {
+                        setNews(data.articles)
+                        setStatus(STATUS.RESOLVED)
+                    } else return Promise.reject(data.message)
                 })
-
                 .catch((error) => {
-                    this.setState({error, status: STATUS.REJECTED})
+                    setError(error)
+                    setStatus(STATUS.REJECTED)
                 })
+}, [searchText, setNews])
 
-                // .finally(() => {
-                //     this.setState({isLoading:false})
-                // })
-        }
-        
-    }
-
-    render() { 
-        const { news, isLoading, error } = this.state
-
-        if (this.state.status === STATUS.PENDING) return (
+  if (status === STATUS.PENDING) return (
             <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
         )
            
-        else if (this.state.status === STATUS.RESOLVED) return (
+        else if (status === STATUS.RESOLVED) return (
             <ul>
                 { news.map(el => {
                     return <li key={el.url}>{el.title}</li>
@@ -60,27 +51,83 @@ class ContentInfo extends Component {
             </ul>
         )
             
-        else if (this.state.status === STATUS.REJECTED) return <ErrorCard>{error}</ErrorCard>
+        else if (status === STATUS.REJECTED) return <ErrorCard>{error}</ErrorCard>
+         
+}
+
+export default ContentInfo
+
+// class ContentInfo extends Component {
+//     state = {
+//         news: null,
+//         // isLoading: false,
+//         error: '',
+//         status: STATUS.IDLE,
+//     } 
+    
+//     componentDidUpdate(prevProps, prevState) {
+//         if (prevProps.searchText !== this.props.searchText) {
+//             this.setState({ status: STATUS.PENDING })
+            
+//             getNews(this.props.searchText)
+//                 .then((response) => response.json())
+//                 .then((data) => {
+//                     if (data.status === "ok")
+//                         this.setState({
+//                             news: data.articles,
+//                             status: STATUS.RESOLVED,
+//                         })
+//                     else return Promise.reject(data.message)
+//                 })
+
+//                 .catch((error) => {
+//                     this.setState({error, status: STATUS.REJECTED})
+//                 })
+
+//                 // .finally(() => {
+//                 //     this.setState({isLoading:false})
+//                 // })
+//         }
+        
+//     }
+
+//     render() { 
+//         const { news, isLoading, error } = this.state
+
+//         if (this.state.status === STATUS.PENDING) return (
+//             <div className="spinner-border" role="status">
+//                 <span className="visually-hidden">Loading...</span>
+//             </div>
+//         )
+           
+//         else if (this.state.status === STATUS.RESOLVED) return (
+//             <ul>
+//                 { news.map(el => {
+//                     return <li key={el.url}>{el.title}</li>
+//                 })}
+//             </ul>
+//         )
+            
+//         else if (this.state.status === STATUS.REJECTED) return <ErrorCard>{error}</ErrorCard>
          
 
-        // return (
-        //     <>
-        //         {error && <ErrorCard>{ this.state.error}</ErrorCard>}
-        //         {isLoading && 
-        //             <div className="spinner-border" role="status">
-        //                 <span className="visually-hidden">Loading...</span>
-        //             </div>
-        //         }
-        //         <ul>
-        //             {news && news.map(el => {
-        //                 return <li key={el.url}>{el.title}</li>
-        //             })}
-        //         </ul>
+//         // return (
+//         //     <>
+//         //         {error && <ErrorCard>{ this.state.error}</ErrorCard>}
+//         //         {isLoading && 
+//         //             <div className="spinner-border" role="status">
+//         //                 <span className="visually-hidden">Loading...</span>
+//         //             </div>
+//         //         }
+//         //         <ul>
+//         //             {news && news.map(el => {
+//         //                 return <li key={el.url}>{el.title}</li>
+//         //             })}
+//         //         </ul>
                 
-        //     </>
-        // )
+//         //     </>
+//         // )
         
-    }
-}
+//     }
+// }
  
-export default ContentInfo;

@@ -1,16 +1,24 @@
 import { Component, useEffect, useState } from 'react'
 import { nanoid } from 'nanoid'
 import toast from 'react-hot-toast';
+import { useSearchParams } from "react-router-dom";
+
 import ToDo from '../Todo/ToDo'
 import todo from '../../todo.json'
 import FormToDo from '../FormToDo/FormToDo'
+import FormFilterTodo from '../FormToDo/FormFilterTodo';
+
 
 const ToDoList = () => {
 
     const [todoList, setTodoList] = useState('')
-    // const [isDelete, setIsDelete] = useState(false)
-    // const [isCreate, setIsCreate] = useState(false)
+    
+    const [filteredTodoList, setFilteredTodoList] = useState(null)
+    
+    const [searchParams, setSearchParams] = useSearchParams()
 
+    const filterText = searchParams.get('filter') ?? '' /* якщо нічо не введено значить null, тоді все ламається. Потрібно або пустий рядок*/
+    
     useEffect(() => {
         const localTodo = localStorage.getItem('todo')
         if (localTodo) setTodoList(JSON.parse(localTodo))
@@ -18,7 +26,17 @@ const ToDoList = () => {
 
     useEffect(() => {
         todoList && localStorage.setItem('todo', JSON.stringify(todoList)) /* перевірка, щоб не було першого рендера  */
-   }, [todoList])
+    }, [todoList])
+    
+    useEffect(() => {
+        todoList &&
+            setFilteredTodoList(
+                todoList.filter((todo) =>
+                    todo.title.toLowerCase().includes(filterText.trim().toLowerCase())
+            )
+        )
+    }, [filterText, searchParams, todoList])
+    
 
 
     const addToDo = (value) => {
@@ -49,13 +67,12 @@ const ToDoList = () => {
 
     return (
         <>
-                <h1>My To-Do list</h1>
-                
-                <FormToDo addToDo={addToDo } />
-                
-                {todoList && (
+            <h1>My To-Do list</h1>
+            <FormFilterTodo setSearchParams={setSearchParams} filterText={filterText} />
+            <FormToDo addToDo={addToDo } />
+               {filteredTodoList && (
                     <ul className='list-group list-group-flush'>
-                        {todoList.map((todo) => (
+                        {filteredTodoList.map((todo) => (
                             <ToDo
                                 key={todo.id}
                                 todo={todo}
@@ -65,7 +82,7 @@ const ToDoList = () => {
                     </ul>
                 )}    
                 
-            </>
+        </>
     )
 }
 

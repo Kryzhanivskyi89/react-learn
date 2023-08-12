@@ -1,7 +1,8 @@
 import { Component, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { increment, decrement } from "../../store/counter/actions";
+// import { decrement } from "../../store/counter/actions";
+import { increment, decrement } from "../../store/counter/counterSlice";
 
 class Button extends Component  {
     

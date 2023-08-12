@@ -6,7 +6,8 @@ import './index.css';
 
 import App from './components/App';
 import Context from './testContext/Context/Context';
-import { store } from './store/store'
+import { persistor, store } from './store/store'
+import { PersistGate } from 'redux-persist/integration/react';
 
 // import App from './testContext/App'
 
@@ -18,8 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
         <Provider store={store}>
             <Context>
-                <App />
-            </Context>
+                <PersistGate loading={null} persistor={persistor}>
+                    <App />
+                </PersistGate>
+             </Context>
         </Provider>   
     </BrowserRouter>
 )

@@ -8,7 +8,7 @@ export const todoReducer = (state = initialState.todo, action) => {
         case CREATETODO:
             return {
                 ...state,
-                todo: [state.todo, {...action.payload}],
+                todo: [...state.todo, {...action.payload}],
             }
         default:
             return state;

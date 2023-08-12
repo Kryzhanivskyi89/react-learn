@@ -1,9 +1,12 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import  {BrowserRouter} from 'react-router-dom';
 import './index.css';
+
 import App from './components/App';
 import Context from './testContext/Context/Context';
+import { store } from './store/store'
 
 // import App from './testContext/App'
 
@@ -13,9 +16,11 @@ import Context from './testContext/Context/Context';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-        <Context>
-            <App />
-        </Context>
+        <Provider store={store}>
+            <Context>
+                <App />
+            </Context>
+        </Provider>   
     </BrowserRouter>
 )
 

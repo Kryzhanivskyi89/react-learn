@@ -1,7 +1,6 @@
+
 import { combineReducers } from "redux"
-import { initialState } from './initialState'
-import { INCREMENT, DECREMENT, SETSTEP } from "./counter/types"
-import { counterReducer } from "./counter/counterReducer"
+import { counterReducer } from "./counter/counterSlice"
 import { todoReducer } from "./todo/todoReducer"
 
 

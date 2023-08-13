@@ -36,6 +36,11 @@ const Header = ({ showModal }) => {
 							to='/todo'>
 							To do
 					</NavLink>
+					<NavLink
+							className='nav-item text-white'
+							to='/products'>
+							Products
+					</NavLink>
 					
 				</div>
 				</div>

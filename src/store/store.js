@@ -8,7 +8,7 @@ import { persistStore, persistReducer, FLUSH,
 	PURGE,
 	REGISTER, } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' 
-// import { productsApi } from './products/productsAPI'
+import { productsApi } from './products/productsAPI'
 
 // store.dispatch({type:'increment', payload:1})
 // console.log(store)
@@ -35,9 +35,9 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 export const store = configureStore({
-    reducer: persistedReducer,
-    // middleware: [customMiddle],
-    middleware: (getDefaultMiddleware) =>
+	reducer: persistedReducer,
+	// middleware: [customMiddle],
+	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: {
 				ignoredActions: [
@@ -49,7 +49,9 @@ export const store = configureStore({
 					REGISTER,
 				],
 			},
-		}),
+		}).concat(productsApi.middleware),
+	// middleware: (getDefaultMiddleware) =>
+	// 	getDefaultMiddleware().concat(productsApi.middleware),
 })
 
 export const persistor = persistStore(store)

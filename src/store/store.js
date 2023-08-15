@@ -1,36 +1,37 @@
-
 import { configureStore } from '@reduxjs/toolkit'
-import {reducer} from './reducer'
-import { persistStore, persistReducer, FLUSH,
+
+import {
+	persistStore,
+	persistReducer,
+	FLUSH,
 	REHYDRATE,
 	PAUSE,
 	PERSIST,
 	PURGE,
-	REGISTER, } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' 
+	REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+
+import { reducer } from './reducer'
 import { productsApi } from './products/productsAPI'
 
-// store.dispatch({type:'increment', payload:1})
-// console.log(store)
-
 const persistConfig = {
-    key: 'root',
-    storage,
-    // blacklist: ['counter'],
+	key: 'todoS',
+	storage,
+	whitelist: ['todo', 'auth'],
 }
 
 // const customMiddle = (state) => {
-//     return (next) => {
-//         return (action) => {
-//             if (typeof action === 'function') {
-//                 action(state.dispatch)
-//                 return
-//             }
-//             return next(action)
-//         }
-//     }
+// 	return (next) => {
+// 		return (action) => {
+// 			if (typeof action === 'function') {
+// 				action(state.dispatch)
+// 				return
+// 			}
+// 			return next(action)
+// 		}
+// 	}
 // }
-
 
 const persistedReducer = persistReducer(persistConfig, reducer)
 

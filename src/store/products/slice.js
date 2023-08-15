@@ -46,7 +46,7 @@ export const productSlice = createSlice({
 	extraReducers: (builder) => {
 		const { PENDING, FULFILLED, REJECTED } = STATUS
 		builder
-			.addCase(getProductsThunk.fulfilled, handleFulfilledGet)  /* addCase - обробляє thunk*/
+			.addCase(getProductsThunk.fulfilled, handleFulfilledGet)
 			.addCase(createProductsThunk.fulfilled, handleFulfilledCreate)
 			.addCase(deleteProductsThunk.fulfilled, handleFulfilledDel)
 			.addMatcher(isAnyOf(...fn(PENDING)), handlePending)

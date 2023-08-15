@@ -1,14 +1,15 @@
-import React, {  useEffect } from 'react';
+import { useEffect } from 'react'
 
-const Modal = ({closeModal, children}) => {
-
+const Modal = ({ closeModal, children }) => {
 	useEffect(() => {
-		const handlePresESC = ( e ) => {    
-			if (e.code === "Escape") closeModal()  /* при кліку на escape викликається closeModal*/
-			}
-		window.addEventListener('keydown', handlePresESC)
+		const handlePressESC = (e) => {
+			console.log('object :>> ', Date.now())
+			if (e.code === 'Escape') closeModal()
+		}
+
+		window.addEventListener('keydown', handlePressESC)
 		return () => {
-			window.removeEventListener('keydown', handlePresESC)
+			window.removeEventListener('keydown', handlePressESC)
 		}
 	}, [closeModal])
 
@@ -35,44 +36,48 @@ const Modal = ({closeModal, children}) => {
 	)
 }
 
+export default Modal
+
 // class Modal extends Component {
-// 	state = {} 
-	
-// 	componentDidMount() { 
-// 		window.addEventListener('keydown', this.handlePresESC)  /* вішаємо слухача */
+// 	state = {}
+
+// 	componentDidMount() {
+// 		window.addEventListener('keydown', this.handlePressESC)
 // 	}
 
 // 	componentWillUnmount() {
-// 		window.removeEventListener('keydown', this.handlePresESC)  /* знімаємо слухача */
+// 		window.removeEventListener('keydown', this.handlePressESC)
 // 	}
 
-// 	handlePresESC = ( e ) => {    
-// 		if (e.code === "Escape") /* при кліку на escape */
-// 		this.props.closeModal()   /* викликається closeModal */
+// 	handlePressESC = (e) => {
+// 		console.log('object :>> ', Date.now())
+// 		if (e.code === 'Escape') this.props.closeModal()
 // 	}
 
-// 	render() { 
-// 		const {children, closeModal} = this.props
-// 		return (<div
-// 			className='modal fade show'
-// 			style={{ display: 'block', backdropFilter: 'blur(5px)' }}
-// 		>
-// 			<div className='modal-dialog'>
-// 				<div className='modal-content'>
-// 					<div className='modal-header'>
-// 						<h5 className='modal-title'> Modal</h5>
-// 						<button
-// 							type='button'
-// 							className='btn-close'
-// 							aria-label='Close'
-// 							onClick={closeModal}
-// 						></button>
+// 	render() {
+// 		const { closeModal, children } = this.props
+// 		return (
+// 			<div
+// 				className='modal fade show'
+// 				style={{ display: 'block', backdropFilter: 'blur(5px)' }}
+// 			>
+// 				<div className='modal-dialog'>
+// 					<div className='modal-content'>
+// 						<div className='modal-header'>
+// 							<h5 className='modal-title'> Modal</h5>
+// 							<button
+// 								type='button'
+// 								className='btn-close'
+// 								aria-label='Close'
+// 								onClick={closeModal}
+// 							></button>
+// 						</div>
+// 						<div className='modal-body'>{children}</div>
 // 					</div>
-// 					<div className='modal-body'>{children}</div>
 // 				</div>
 // 			</div>
-// 		</div>);
+// 		)
 // 	}
 // }
- 
-export default Modal;
+
+// export default Modal

@@ -1,29 +1,28 @@
-import { Component } from "react";
+import { Component } from 'react'
 
 class Search extends Component {
-    state = { 
-        value: '',
+	state = {
+		value: '',
+	}
 
-    } 
-    
-    handleChange = ({ target: {value} }) => {   
-        this.setState({value})      /* передаємо отримані значення інпута у стейт */
-    }
+	// handleChange = ({ target: { value } }) => {
+	// 	this.setState({ value })
+	// }
+	handleChange = (e) => {
+		// this.setState({ value:e.target.value })
+		const { target } = e
+		const { value } = target
+		this.setState({ value })
+	}
 
-    // handleChange = (e) => {   
-    //     this.setState({ value: e.target.value})      /* передаємо отримані значення інпута у стейт */
-    // }
+	handleSubmit = (e) => {
+		e.preventDefault()
+		this.props.handleSearch(this.state.value)
+	}
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        this.props.handleSearch(this.state.value)
-        console.log(this.state)
-
-    }
-
-    render() { 
-        return (
-            <>
+	render() {
+		return (
+			<>
 				<form
 					className='d-flex mt-2'
 					role='search'
@@ -42,8 +41,8 @@ class Search extends Component {
 					</button>
 				</form>
 			</>
-        );
-    }
+		)
+	}
 }
- 
-export default Search;
+
+export default Search

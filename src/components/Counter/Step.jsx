@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux'
-// import { setStep } from '../../store/counter/actions'
 
 import { setStep } from '../../store/counter/counterSlice'
 
@@ -11,8 +10,7 @@ const Step = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const { value } = e.target.elements.step
-        dispatch(setStep(Number(value)))
-        // dispatch({type: 'setStep', payload: Number(value)})
+		dispatch(setStep(Number(value)))
 	}
 
 	return (

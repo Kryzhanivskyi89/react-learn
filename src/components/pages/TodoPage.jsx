@@ -1,12 +1,7 @@
-import React from 'react'
-import ToDoList from '../ToDoList/TodoList'
+import ToDoList from '../ToDoList/ToDoList'
 
-const TodoPage = () => {
-    return (
-        <>
-            <ToDoList />
-        </>
-    
-  )
+const ToDoPage = () => {
+	return <ToDoList />
 }
-export default TodoPage
+
+export default ToDoPage

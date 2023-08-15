@@ -11,8 +11,6 @@
 // }
 
 // export default Alert
-
-
 import React from 'react'
 import Alert1 from './Alert1/Alert1'
 

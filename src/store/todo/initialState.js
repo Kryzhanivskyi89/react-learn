@@ -1,1 +1,1 @@
-export const todoInitialState = {todo: [], filteredTodo: []}
+export const todoInitialState = { todo: [], filteredTodo: [] }
